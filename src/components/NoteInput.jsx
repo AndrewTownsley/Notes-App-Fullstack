@@ -10,6 +10,7 @@ const NoteInput = ({ handleTitleChange, handleTextChange, noteTitle, noteText, s
 
     return (
         <div className="note-input">
+          <h1>noteflix</h1>
               <label htmlFor="note-title">
                 </label>
                 <input

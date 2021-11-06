@@ -1,8 +1,8 @@
 import { MdDeleteForever } from 'react-icons/md'
-import { RiPushpin2Line } from 'react-icons/ri';
+import { RiCheckLine } from 'react-icons/ri'
 
 
-const Note = ({titleState, note, Note, deleteNote, pinNote, setPinNote, pinnedNotesArray, handlePinNote}) => {
+const Note = ({ note, deleteNote }) => {
 
 
 
@@ -13,7 +13,7 @@ const Note = ({titleState, note, Note, deleteNote, pinNote, setPinNote, pinnedNo
                 <h5 className={note.category}>{note.category}</h5>
                 <h3>{note.title.substring(0,30)}</h3>
               </div>
-              <RiPushpin2Line onClick={() => setPinNote(true)} className="pin-icon"/>
+              {/* <RiCheckLine onClick={() => setComplete(true)} className="pin-icon"/> */}
             </div>
             <p>{note.text.substring(0, 50)}</p>
             <div className="note-footer">

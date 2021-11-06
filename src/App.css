@@ -10,14 +10,16 @@
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--font-main-clr);
 
-  --bg-primary: #f9f9f9;
-  --bg-second: #f7f7f7;
+  --bg-primary: #fff;
+  --bg-second: #f1f1f1;
+  --bg-input: #f5f5f5;
   --font-main-clr: #555;
   --font-second-clr: #777;
   --font-light-clr: #999;
   --category-clr: #3cc47c;
-  --note-clr: rgb(252, 252, 252);
+  --note-clr: #fff;
   --note-hover: rgb(249, 249, 249);
+  --note-history-hover: #dfdfdf;
 
   --color-btn: #0c73eb;
   --btn-hover: #0e7dfd;
@@ -27,16 +29,27 @@
   --font-med: 1rem;
   --font-sml: 0.75rem;
 
-  --border-gray: 2px solid rgb(235, 235, 235);
-  --border-rad: 3px;
-  --box-shd: 0px 1px 6px 0px rgba(119, 119, 119, 0.2);
-  --box-hover: 0px 1px 6px 1px rgba(119, 119, 119, 0.25);
+  --border-gray: 2px solid #f1f1f1;
+  --border-rad: 10px;
+  --box-shd: 2px 3px 4px 2px rgba(119, 119, 119, 0.15);
+  --box-hover: 2px 3px 4px 2px rgba(119, 119, 119, 0.23);
+  --box-shd-btn: 2px 3px 2px 2px rgba(119, 119, 119, 0.23);
+  --box-shd-btn-hov: 2px 3px 2px 2px rgba(119, 119, 119, 0.3);
   --input-outline: 2px solid #0e7dfd;
+  --input-hover: 2px solid #0e7dfd;
+
+  --trans-fast: all ease-in-out 0.2s;
+  --trans-reg: all ease-in-out 0.3s;
+  --trans-slow: all ease-in-out 0.4s;
 }
 
 .App {
   display: grid;
   grid-template-columns: 300px 1fr;
+}
+
+h1 {
+  padding-bottom: 2rem;
 }
 
 h5 {
@@ -52,9 +65,23 @@ p {
   font-size: var(--font-sml);
 }
 
+select,
+input,
+textarea {
+  transition: var(--trans-fast);
+}
+
+select:hover,
+textarea:hover,
+input:hover,
 select:focus,
+textarea:focus,
 input:focus {
-  outline: var(--input-outline);
+  border: var(--input-hover);
+}
+
+select option {
+  padding: 10rem;
 }
 
 .burger-icon {
@@ -64,10 +91,12 @@ input:focus {
 /* ------------------------------ Sidebar */
 
 .sidebar {
-  background-color: var(--bg-second);
+  left: 0;
+  top: 0;
+  background-color: var(--bg-primary);
   border-right: var(--border-gray);
   min-height: 100vh;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .note-input {
@@ -83,16 +112,35 @@ input:focus {
 .note-input input {
   width: 80%;
   padding: 0.5rem 0;
-  background-color: #fff;
+  background-color: var(--bg-primary);
   border: var(--border-gray);
   border-radius: var(--border-rad);
   margin-bottom: 1rem;
   font-size: var(--font-med);
   color: var(--font-main-clr);
+  transition: var(--trans-fast);
+  outline: none;
 }
 
-.note-input input:focus {
-  outline: var(--input-outline);
+.note-input input,
+.note-input textarea,
+.note-input select,
+.note-search input,
+.note-input-select {
+  background-color: var(--bg-second);
+}
+
+.note-input input:hover,
+.note-input textarea:hover,
+.note-input select:hover,
+.note-search input:hover {
+  border: var(--input-hover);
+}
+.note-input input:focus,
+.note-input textarea:focus,
+.note-input select:focus,
+.note-search input:hover {
+  border: var(--input-hover);
 }
 
 .note-input input::placeholder,
@@ -105,14 +153,10 @@ input:focus {
   width: 80%;
   font-size: var(--font-med);
   border-radius: var(--border-rad);
-  background-color: #fff;
   border: var(--border-gray);
   outline: none;
   color: var(--font-main-clr);
-}
-
-.note-input textarea:focus {
-  outline: var(--input-outline);
+  transition: var(--trans-fast);
 }
 
 .note-input select {
@@ -122,10 +166,7 @@ input:focus {
   outline: none;
   padding: 10px;
   border-radius: var(--border-rad);
-}
-
-.note-input select:focus {
-  outline: var(--input-outline);
+  transition: var(--trans-fast);
 }
 
 .note-input-footer {
@@ -150,7 +191,8 @@ input:focus {
   cursor: pointer;
   font-size: var(--font-med);
   font-weight: 700;
-  box-shadow: var(--box-shd);
+  transition: var(--trans-fast);
+  /* box-shadow: var(--box-shd-btn); */
 }
 
 .save-btn .plus {
@@ -159,13 +201,17 @@ input:focus {
 
 .save-btn:hover {
   background-color: var(--btn-hover);
+  /* box-shadow: var(--box-shd-btn-hov); */
 }
 
 .note-history {
+  overflow-y: scroll;
+  max-height: 100vh;
   margin-top: 1rem;
 }
 
 .note-history-item {
+  background-color: var(--bg-second);
   border-top: var(--border-gray);
   border-bottom: var(--border-gray);
   padding: 0.5rem;
@@ -199,24 +245,26 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 350px));
   gap: 0.5rem;
-}
-
-.note-search {
-  background-color: var(--bg-primary);
+  margin-top: 2rem;
 }
 
 .note-search-container {
+  background-color: var(--bg-primary);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 2rem;
+  border-bottom: var(--border-gray);
+  box-shadow: 0px 3px 6px 0px rgba(119, 119, 119, 0.15);
 }
 
 .note-search input {
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0.5rem 10px;
   border-radius: var(--border-rad);
   border: none;
   border: var(--border-gray);
+  transition: var(--trans-fast);
+  outline: none;
 }
 
 .note-input-select {
@@ -241,6 +289,7 @@ input:focus {
   background-color: var(--note-clr);
   color: var(--font-main-clr);
   cursor: pointer;
+  transition: var(--trans-reg);
   box-shadow: var(--box-shd);
 }
 

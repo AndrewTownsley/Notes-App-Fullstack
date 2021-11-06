@@ -104,7 +104,7 @@ useEffect(() => {
           titleState={titleState}
           category={category}
           open={open}
-          setOpen={setOpen}
+          setOpen={setOpen} 
         />  
     </div>
   );

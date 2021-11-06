@@ -26,6 +26,7 @@ const NoteList = ({ titleState, notesArray, deleteNote, handleSearchNote, handle
                 
                     <select onChange={handleCategorySort} className="note-search-category note-input-select" name="category-sort" id="category-sort">
                         <option value="">Category</option>
+                        <option value="">All</option>
                         <option value="Important">Important !</option>
                         <option value="Work">Work</option>
                         <option value="School">School</option>
