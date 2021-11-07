@@ -111,6 +111,27 @@ select option {
   justify-content: center;
 }
 
+.note-input h1 {
+  position: relative;
+  z-index: 0;
+}
+
+.note-input h1::after {
+  content: "";
+  position: absolute;
+  display: block;
+  bottom: 50%;
+  background-color: rgba(14, 125, 253, 0.5);
+  width: 140px;
+  height: 10px;
+  z-index: -1;
+  transition: var(--trans-slow);
+}
+
+.note-input h1:hover::after {
+  transform: scaleY(1.4);
+}
+
 .note-input input {
   width: 80%;
   padding: 0.5rem 0;
