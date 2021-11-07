@@ -7,7 +7,8 @@ import Note from "./Note";
 const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort, open, setOpen }) => {
 
     return(
-        <section className="notes-list-container">
+        <section className="notes-list-container" onClick={ open ? () => setOpen(false) : null}
+        open={open}>
             <div className="note-search">
                 <div className="note-search-container">
                     <GiHamburgerMenu 
