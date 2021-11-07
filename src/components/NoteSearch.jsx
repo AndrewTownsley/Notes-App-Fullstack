@@ -1,5 +1,5 @@
 import React from 'react'
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { FiPlusCircle } from 'react-icons/fi'
 
 
 const NoteSearch = ({ open, setOpen, handleSearchNote, handleCategorySort}) => {
@@ -7,7 +7,7 @@ const NoteSearch = ({ open, setOpen, handleSearchNote, handleCategorySort}) => {
         <div className="note-search">
         <div className="note-search-container">
             <div className="note-search-mobile-header">
-                <GiHamburgerMenu 
+                <FiPlusCircle 
                     onClick={ !open ? () => setOpen(true) : () => setOpen(false)}
                     open={open}
                     className="burger-icon"
