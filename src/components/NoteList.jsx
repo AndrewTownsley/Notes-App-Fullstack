@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
-import { GiHamburgerMenu } from 'react-icons/gi'
 import Note from "./Note";
-
+import NoteSearch from "./NoteSearch";
 
 
 const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort, open, setOpen }) => {
@@ -9,33 +8,12 @@ const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort
     return(
         <section className="notes-list-container" onClick={ open ? () => setOpen(false) : null}
         open={open}>
-            <div className="note-search">
-                <div className="note-search-container">
-                    <GiHamburgerMenu 
-                        onClick={ !open ? () => setOpen(true) : () => setOpen(false)}
-                        open={open}
-                        className="burger-icon"
-                    />
-                    <input 
-                        className="note-search-input"
-                        onChange={(event) => handleSearchNote(event.target.value)} 
-                        type="text" 
-                        name="search" 
-                        id="note-search" 
-                        placeholder="Search Notes..."
-                        />
-                
-                    <select onChange={handleCategorySort} className="note-search-category note-input-select" name="category-sort" id="category-sort">
-                        <option value="">Category</option>
-                        <option value="">All</option>
-                        <option value="Important">Important !</option>
-                        <option value="Work">Work</option>
-                        <option value="School">School</option>
-                        <option value="Home">Home</option>
-                        <option value="Personal">Personal</option>
-                    </select>
-                </div>
-            </div>
+            <NoteSearch
+                open={open}
+                setOpen={setOpen}
+                handleSearchNote={handleSearchNote}
+                handleCategorySort={handleCategorySort}
+            />
 
             <div className="pinned-notes-container">
             </div>
