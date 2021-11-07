@@ -68,7 +68,6 @@ const handleCategorySort = (e) => {
   setFilterCategory(e.target.value);
 }
 
-
 useEffect(() => {
   localStorage.setItem("notes-app-data", JSON.stringify(notesArray))
 }, [notesArray])
@@ -97,11 +96,9 @@ useEffect(() => {
           }
           createNote={createNote}
           saveNote={saveNote}
-          // savePinnedNote={savePinnedNote}
           deleteNote={deleteNote} 
           handleSearchNote={setSearchText}
           handleCategorySort={handleCategorySort}
-          titleState={titleState}
           category={category}
           open={open}
           setOpen={setOpen} 

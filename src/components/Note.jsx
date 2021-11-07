@@ -1,19 +1,21 @@
-import { MdDeleteForever } from 'react-icons/md'
-import { RiCheckLine } from 'react-icons/ri'
+import { useState } from 'react';
+import { MdDeleteForever } from 'react-icons/md';
+import { RiCheckLine } from 'react-icons/ri';
 
 
 const Note = ({ note, deleteNote }) => {
+  const [completeNote, setCompleteNote] = useState(false);
 
 
 
     return (
-          <article className="note" id={note.id}>  
+          <article className={ !completeNote ? 'note' : 'note note-complete'} id={note.id}>  
             <div className="note-header">
               <div className="note-header-title">
                 <h5 className={note.category}>{note.category}</h5>
                 <h3>{note.title.substring(0,30)}</h3>
               </div>
-              {/* <RiCheckLine onClick={() => setComplete(true)} className="pin-icon"/> */}
+              <RiCheckLine style={{color: "#3cc47c"}} onClick={ !completeNote ? () => setCompleteNote(true) : () => setCompleteNote(false)} className="pin-icon"/>
             </div>
             <p>{note.text.substring(0, 50)}</p>
             <div className="note-footer">

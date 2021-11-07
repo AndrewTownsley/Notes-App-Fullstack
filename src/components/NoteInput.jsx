@@ -35,6 +35,7 @@ const NoteInput = ({ handleTitleChange, handleTextChange, noteTitle, noteText, s
                   <option value="School">School</option>
                   <option value="Home">Home</option>
                   <option value="Personal">Personal</option>
+                  <option value="Misc">Misc</option>
                 </select>
               <button className="save-btn" onClick={saveNote}><FaPlus className="plus"/>Save Note</button>
       </div>

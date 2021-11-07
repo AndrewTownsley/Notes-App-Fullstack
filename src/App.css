@@ -20,6 +20,8 @@
   --note-clr: #fff;
   --note-hover: rgb(249, 249, 249);
   --note-history-hover: #dfdfdf;
+  --note-bg-complete: #f5f5f5;
+  --note-txt-complete: #999;
 
   --color-btn: #0c73eb;
   --btn-hover: #0e7dfd;
@@ -150,7 +152,8 @@ select option {
 }
 
 .note-input textarea {
-  width: 80%;
+  width: 74%;
+  padding: 0.5rem;
   font-size: var(--font-med);
   border-radius: var(--border-rad);
   border: var(--border-gray);
@@ -289,7 +292,7 @@ select option {
   background-color: var(--note-clr);
   color: var(--font-main-clr);
   cursor: pointer;
-  transition: var(--trans-reg);
+  transition: var(--trans-fast);
   box-shadow: var(--box-shd);
 }
 
@@ -357,6 +360,18 @@ select option {
 
 .Home {
   color: #4999c7;
+}
+
+.note-complete {
+  background-color: var(--bg-input);
+  color: var(--note-text-complete);
+  text-decoration: line-through;
+}
+
+.note-complete p,
+.note-footer p,
+.note-header-title {
+  color: #999;
 }
 
 /* ---------------------Media Query */

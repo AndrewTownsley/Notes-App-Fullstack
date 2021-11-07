@@ -4,7 +4,7 @@ import Note from "./Note";
 
 
 
-const NoteList = ({ titleState, notesArray, deleteNote, handleSearchNote, handleCategorySort, savePinnedNote, openMenu, open, setOpen }) => {
+const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort, open, setOpen }) => {
 
     return(
         <section className="notes-list-container">
@@ -45,12 +45,10 @@ const NoteList = ({ titleState, notesArray, deleteNote, handleSearchNote, handle
                             id={note.id}
                             note={note}
                             noteTitle={note.noteTitle}
-                            titleState={titleState}
                             title={note.title}
                             category={note.category}
                             text={note.text}
                             deleteNote={deleteNote}
-                            savePinnedNote={savePinnedNote}
                         />
                 })}
             </div>
