@@ -48,6 +48,7 @@
 .App {
   display: grid;
   grid-template-columns: 300px 1fr;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -438,17 +439,18 @@ select option {
     display: flex;
     width: 2.5rem;
     height: 2.5rem;
-    /* background: transparent; */
+    background: #fff;
+    color: #0b64ca;
+    padding: 0;
     border: none;
     cursor: pointer;
     border-radius: 1.5rem;
     transition: var(--trans-fast);
-    background-color: rgba(22, 131, 255, 0.2);
     z-index: 10;
   }
 
   .burger-icon:hover {
-    background-color: rgba(22, 131, 255, 0.1);
+    color: #1076eb;
   }
 
   .App {
@@ -572,7 +574,17 @@ select option {
     -webkit-box-shadow: 10px 14px 26px 3px rgba(119, 119, 119, 0.55);
   }
 
+  .note-input {
+    margin: 0.5rem 0.5rem 0.5rem 1.5rem;
+  }
+
   .openSidebar {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 365px) {
+  .sidebar {
+    top: 12%;
   }
 }
