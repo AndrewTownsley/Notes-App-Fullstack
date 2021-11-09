@@ -6,7 +6,7 @@ const noteSchema = new Schema({
         type: String,
         required: false
     },
-    body: {
+    text: {
         type: String,
         required: true
     },

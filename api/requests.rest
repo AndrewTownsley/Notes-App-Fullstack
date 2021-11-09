@@ -1,0 +1,20 @@
+GET http://localhost:3001/notes
+
+###
+
+POST http://localhost:3001/note/new
+Content-Type: application/json
+
+{
+    "title": "123123123123123123",
+    "text": "123123123133231",
+    "complete": false
+}
+
+###
+
+DELETE http://localhost:3001/note/delete/6189ff46eca0104257736f0a
+
+###
+
+PUT http://localhost:3001/note/complete/6189febdce9f21741380ca0d

@@ -17,7 +17,31 @@ mongoose.connect('mongodb://localhost:27017/test', {
 const Note = require("./models/Notes"); 
 
 app.get('/Notes', async (req, res) => {
-    const todos = await Note.find();
+    const notes = await Note.find()
+    res.json(notes);
 })
 
-    app.listen(30001, () => console.log("Server started on PORT 3001"));
+app.post('/note/new', (req, res) => {
+    const note = new Note({
+        title: req.body.title,
+        text: req.body.text,
+        complete: req.body.complete
+    })
+    note.save();
+    res.json(note);
+})
+
+app.delete('/note/delete/:id', async (req, res) => {
+    const result = await Note.findByIdAndDelete(req.params.id);
+
+    res.json({result});
+})
+
+app.put('/note/complete/:id', async (req, res) => {
+    const note = await Note.findById(req.params.id)
+    note.complete = !note.complete;
+    note.save();
+    res.json(note);
+})
+
+    app.listen(3001, () => console.log("Server started on PORT 3001"));
