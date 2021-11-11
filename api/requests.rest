@@ -6,9 +6,10 @@ POST http://localhost:3001/note/new
 Content-Type: application/json
 
 {
-    "title": "123123123123123123",
-    "text": "123123123133231",
-    "complete": false
+    "title": "New data test wednesday",
+    "text": "does the category work? the date?",
+    "complete": false,
+    "category": "work"
 }
 
 ###

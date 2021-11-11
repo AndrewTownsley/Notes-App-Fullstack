@@ -19,6 +19,11 @@ function App() {
   //   const initialValue = JSON.parse(savedNotes);
   //   return initialValue || [];
   // });
+  // const [notesArray, setNotesArray] = useState(() => {
+  //   const savedNotes = getNotes;
+  //   const initialValue = JSON.parse(savedNotes);
+  //   return initialValue || [];
+  // });
   const characterLimit = 200;
 
   const API_BASE = 'http://localhost:3001';

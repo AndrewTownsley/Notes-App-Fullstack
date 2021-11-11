@@ -25,7 +25,9 @@ app.post('/note/new', (req, res) => {
     const note = new Note({
         title: req.body.title,
         text: req.body.text,
-        complete: req.body.complete
+        complete: req.body.complete,
+        category: req.body.category,
+        date: req.body.date
     })
     note.save();
     res.json(note);

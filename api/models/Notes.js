@@ -12,8 +12,18 @@ const noteSchema = new Schema({
     },
     complete: {
         type: Boolean,
+        required: true,
+        default: false
+    },
+    category: {
+        type: String,
+        required: false
+    },
+    date: {
+        type: String,
         required: true
     }
+
 })
 
 const Note = mongoose.model('Note', noteSchema);
