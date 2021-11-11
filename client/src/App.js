@@ -13,12 +13,15 @@ function App() {
   const [filterCategory, setFilterCategory] = useState('');
   const [searchText, setSearchText] = useState('');
   const [open, setOpen] = useState(false);
-  const [notesArray, setNotesArray] = useState(() => {
-    const savedNotes = localStorage.getItem("notes-app-data");
-    const initialValue = JSON.parse(savedNotes);
-    return initialValue || [];
-  });
+  const [notesArray, setNotesArray] = useState([])
+  // const [notesArray, setNotesArray] = useState(() => {
+  //   const savedNotes = localStorage.getItem("notes-app-data");
+  //   const initialValue = JSON.parse(savedNotes);
+  //   return initialValue || [];
+  // });
   const characterLimit = 200;
+
+  const API_BASE = 'http://localhost:3001';
 
 const createNote = () => {
   const date = new Date();
@@ -68,9 +71,20 @@ const handleCategorySort = (e) => {
   setFilterCategory(e.target.value);
 }
 
+const getNotes = () => {
+  fetch(API_BASE + '/notes')
+    .then(result => result.json())
+    .then(data => setNotesArray(data))
+    .catch(error => console.log("Error:", error))
+}
 useEffect(() => {
-  localStorage.setItem("notes-app-data", JSON.stringify(notesArray))
-}, [notesArray])
+  getNotes();
+  console.log(notesArray);
+}, [])
+
+// useEffect(() => {
+//   localStorage.setItem("notes-app-data", JSON.stringify(notesArray))
+// }, [notesArray])
 
   return (
     <div className="App">
