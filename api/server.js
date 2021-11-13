@@ -14,9 +14,9 @@ mongoose.connect('mongodb://localhost:27017/test', {
     .then(() => console.log("connected to the DB!!!!"))
     .catch(console.error);
 
-const Note = require("./models/Notes"); 
+const Note = require("./models/Note"); 
 
-app.get('/Notes', async (req, res) => {
+app.get('/notes', async (req, res) => {
     const notes = await Note.find()
     res.json(notes);
 })
@@ -39,7 +39,7 @@ app.delete('/note/delete/:id', async (req, res) => {
     res.json({result});
 })
 
-app.put('/note/complete/:id', async (req, res) => {
+app.get('/note/complete/:id', async (req, res) => {
     const note = await Note.findById(req.params.id)
     note.complete = !note.complete;
     note.save();

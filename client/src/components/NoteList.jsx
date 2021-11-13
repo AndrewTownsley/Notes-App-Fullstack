@@ -3,7 +3,7 @@ import Note from "./Note";
 import NoteSearch from "./NoteSearch";
 
 
-const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort, open, setOpen }) => {
+const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort, open, setOpen, completeNote, completeNoteStyle, setCompleteNoteStyle }) => {
 
     return(
         <section className="notes-list-container" onClick={ open ? () => setOpen(false) : null}
@@ -28,6 +28,9 @@ const NoteList = ({ notesArray, deleteNote, handleSearchNote, handleCategorySort
                             category={note.category}
                             text={note.text}
                             deleteNote={deleteNote}
+                            completeNote={completeNote}
+                            completeNoteStyle={completeNoteStyle}
+                            setCompleteNoteStyle={setCompleteNoteStyle}
                         />
                 })}
             </div>

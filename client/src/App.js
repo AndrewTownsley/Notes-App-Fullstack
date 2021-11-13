@@ -19,11 +19,6 @@ function App() {
   //   const initialValue = JSON.parse(savedNotes);
   //   return initialValue || [];
   // });
-  // const [notesArray, setNotesArray] = useState(() => {
-  //   const savedNotes = getNotes;
-  //   const initialValue = JSON.parse(savedNotes);
-  //   return initialValue || [];
-  // });
   const characterLimit = 200;
 
   const API_BASE = 'http://localhost:3001';
@@ -58,21 +53,57 @@ const handleTextChange = (event) => {
   
   // Write a function that calls the createNote() function, with noteText passed in as a parameter.
   // Then set the value of the noteText from the textarea to be BLANK, so that a new note can be created. 
-const saveNote = () => {
-    if(noteText.trim().length > 0) {
-      createNote(noteText);
-      setNoteText('');
-      setNoteTitle('');
-    }
+// const saveNote = () => {
+//     if(noteText.trim().length > 0) {
+//       createNote(noteText);
+//       setNoteText('');
+//       setNoteTitle('');
+//     }
+// }
+
+const saveNote  = async () => {
+  const data = await fetch(API_BASE + "/note/new", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json" 
+    },
+    body: JSON.stringify({
+      text: noteText
+    })
+  }).then(res => res.json());
+  console.log("NOTE HAS BEEN SAVED !!");
+  setNotesArray([...notesArray, data])
+  createNote(noteText);
+  setNoteText('');
+  setNoteTitle('');
+  console.log("Data: ", data);
 }
 
 const deleteNote = (id) => {
-  const newNotes = notesArray.filter((note) => note.id !== id)
-  setNotesArray(newNotes);
+const data = fetch(API_BASE + "/note/delete/" + id, {
+  method: "DELETE"
+}).then(res => res.json());
+console.log(data);
+
+setNotesArray(notesArray => notesArray.filter((note) => note._id !== data._id));
+// getNotes();
+console.log("NOTE HAS BEEN DELETED!!!!!!!!")
 }
 
+const completeNote = async (id) => {
+  const data = await fetch(API_BASE + "/note/complete/" + id)
+  .then(res => res.json());
+  
+  setNotesArray(notesArray => notesArray.map(note => {
+    if(note._id === data._id) {
+      note.complete = data.complete
+    }
+    return note
+  }));
+}
+
+
 const handleCategorySort = (e) => {
-  console.log(e.target.value);
   setFilterCategory(e.target.value);
 }
 
@@ -82,14 +113,10 @@ const getNotes = () => {
     .then(data => setNotesArray(data))
     .catch(error => console.log("Error:", error))
 }
+
 useEffect(() => {
   getNotes();
-  console.log(notesArray);
 }, [])
-
-// useEffect(() => {
-//   localStorage.setItem("notes-app-data", JSON.stringify(notesArray))
-// }, [notesArray])
 
   return (
     <div className="App">
@@ -121,6 +148,9 @@ useEffect(() => {
           category={category}
           open={open}
           setOpen={setOpen} 
+          completeNote={completeNote}
+          // completeNoteStyle={completeNoteStyle}
+          // setCompleteNoteStyle={setCompleteNoteStyle}
         />  
     </div>
   );
