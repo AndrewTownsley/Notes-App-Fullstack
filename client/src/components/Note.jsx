@@ -17,9 +17,9 @@ console.log(completeNoteStyle);
                 <h3>{note.title}</h3>
                 {/* <h3>{note.title.substring(0,30)}</h3> */}
               </div>
-              <div onClick={ !completeNoteStyle ? () => setCompleteNoteStyle(true) : () => setCompleteNoteStyle(false) }>
+              <div onClick={ !completeNoteStyle ? () => setCompleteNoteStyle(true) : () => setCompleteNoteStyle(false)} className="complete-contaner">
                 <RiCheckLine style={{color: "#3cc47c"}}
-                  onClick={() => completeNote(note.id)} className="pin-icon"/>
+                  onClick={() => completeNote(note._id)} className="pin-icon"/>
               </div>
             </div>
             <p>{note.text}</p>

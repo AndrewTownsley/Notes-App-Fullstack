@@ -366,6 +366,15 @@ select option {
   border-radius: 3px;
 }
 
+.pin-icon {
+  z-index: -1;
+  pointer-events: none;
+}
+
+.complete-container {
+  z-index: 2;
+}
+
 .delete-btn:hover,
 .pin-icon:hover {
   background-color: var(--icon-hover);

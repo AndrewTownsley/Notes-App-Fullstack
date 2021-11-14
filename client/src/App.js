@@ -36,6 +36,17 @@ const createNote = () => {
   setNotesArray(newNotes);
 }
 
+useEffect(() => {
+  getNotes();
+}, [])
+
+const getNotes = () => {
+  fetch(API_BASE + '/notes')
+  .then(result => result.json())
+  .then(data => setNotesArray(data))
+  .catch(error => console.log("Error:", error))
+}
+
 const handleTitleChange = (event) => {
   if(event.target.value.length >= 0) {
     setNoteTitle(event.target.value);
@@ -62,32 +73,41 @@ const handleTextChange = (event) => {
 // }
 
 const saveNote  = async () => {
-  const data = await fetch(API_BASE + "/note/new", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json" 
-    },
-    body: JSON.stringify({
-      text: noteText
-    })
-  }).then(res => res.json());
-  console.log("NOTE HAS BEEN SAVED !!");
-  setNotesArray([...notesArray, data])
-  createNote(noteText);
-  setNoteText('');
-  setNoteTitle('');
-  console.log("Data: ", data);
-}
-
+  if(noteText.trim().length > 0) {
+    const date = new Date();
+    const data = await fetch(API_BASE + "/note/new", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json" 
+      },
+      body: JSON.stringify({
+        id: nanoid(),
+        title: noteTitle,
+        text: noteText,
+        category: category,
+        date: date.toLocaleDateString()
+      })
+    }).then(res => res.json());
+    console.log("NOTE HAS BEEN SAVED !!");
+    setNotesArray([...notesArray, data])
+    createNote(noteText);
+    setNoteText('');
+    setNoteTitle('');
+    console.log("Data: ", data);
+  }
+  }
+  
 const deleteNote = (id) => {
-const data = fetch(API_BASE + "/note/delete/" + id, {
-  method: "DELETE"
-}).then(res => res.json());
-console.log(data);
+  const data = fetch(API_BASE + "/note/delete/" + id, {
+      method: "DELETE"
+  }).then(res => res.json());
+    console.log(data);
 
-setNotesArray(notesArray => notesArray.filter((note) => note._id !== data._id));
-// getNotes();
-console.log("NOTE HAS BEEN DELETED!!!!!!!!")
+const newNotes = notesArray.filter((note) => note._id !== data._id);
+  console.log(data._id);
+  setNotesArray(newNotes);
+  // getNotes();
+  console.log("NOTE HAS BEEN DELETED!!!!!!!!")
 }
 
 const completeNote = async (id) => {
@@ -106,17 +126,6 @@ const completeNote = async (id) => {
 const handleCategorySort = (e) => {
   setFilterCategory(e.target.value);
 }
-
-const getNotes = () => {
-  fetch(API_BASE + '/notes')
-    .then(result => result.json())
-    .then(data => setNotesArray(data))
-    .catch(error => console.log("Error:", error))
-}
-
-useEffect(() => {
-  getNotes();
-}, [])
 
   return (
     <div className="App">
