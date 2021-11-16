@@ -6,9 +6,6 @@ import { RiCheckLine } from 'react-icons/ri';
 const Note = ({ note, deleteNote, completeNote }) => {
   const [completeNoteStyle, setCompleteNoteStyle] = useState(false);
 
-
-console.log(completeNoteStyle);
-
     return (
           <article className={ !completeNoteStyle ? 'note' : 'note note-complete'} id={note._id}>  
             <div className="note-header">

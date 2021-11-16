@@ -312,7 +312,7 @@ select option {
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   min-width: 200px;
   max-height: 175px;
   border-radius: var(--border-rad);

@@ -21,7 +21,17 @@ function App() {
   // });
   const characterLimit = 200;
 
-  const API_BASE = 'http://localhost:3001';
+  // const API_BASE = 'http://localhost:3001';
+
+  useEffect(() => {
+    getNotes();
+  }, [])
+  
+  const getNotes = async () => {
+    const data = await fetch('/notes');
+    const items = await data.json();
+    setNotesArray(items)
+  }
 
 const createNote = () => {
   const date = new Date();
@@ -36,16 +46,53 @@ const createNote = () => {
   setNotesArray(newNotes);
 }
 
-useEffect(() => {
-  getNotes();
-}, [])
+// const getNotes = () => {
+//   fetch(API_BASE + '/notes')
+//   .then(result => result.json())
+//   .then(data => setNotesArray(data))
+//   .catch(error => console.log("Error:", error));
+//   console.log("getNotes Notes Array: ", notesArray);
+// }
 
-const getNotes = () => {
-  fetch(API_BASE + '/notes')
-  .then(result => result.json())
-  .then(data => setNotesArray(data))
-  .catch(error => console.log("Error:", error))
+const saveNote  = async () => {
+  if(noteText.trim().length > 0) {
+    const date = new Date();
+    const data = await fetch(API_BASE + "/note/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        id: nanoid(),
+        title: noteTitle,
+        text: noteText,
+        category: category,
+        date: date.toLocaleDateString()
+      })
+    }).then(res => res.json());
+    console.log("NOTE HAS BEEN SAVED !!");
+    createNote(noteText);
+    setNotesArray([...notesArray, data])
+    setNoteText('');
+    setNoteTitle('');
+    console.log("Data: ", data);
+  }
+  }
+
+const deleteNote = async (id) => {
+  const data = await fetch(API_BASE + "/note/delete/" + id, {
+    method: "DELETE"
+  }).then(res => res.json());
+  console.log("Delete DATA: ", data);
+  
+  
+  setNotesArray(notesArray => notesArray.filter(note => note._id !== data._id));
+  // getNotes();
+  console.log("DATA: ", data);
+  console.log("Delete notesArray", notesArray);
+  console.log("NOTE HAS BEEN DELETED!!!!!!!!")
 }
+
 
 const handleTitleChange = (event) => {
   if(event.target.value.length >= 0) {
@@ -71,44 +118,6 @@ const handleTextChange = (event) => {
 //       setNoteTitle('');
 //     }
 // }
-
-const saveNote  = async () => {
-  if(noteText.trim().length > 0) {
-    const date = new Date();
-    const data = await fetch(API_BASE + "/note/new", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json" 
-      },
-      body: JSON.stringify({
-        id: nanoid(),
-        title: noteTitle,
-        text: noteText,
-        category: category,
-        date: date.toLocaleDateString()
-      })
-    }).then(res => res.json());
-    console.log("NOTE HAS BEEN SAVED !!");
-    setNotesArray([...notesArray, data])
-    createNote(noteText);
-    setNoteText('');
-    setNoteTitle('');
-    console.log("Data: ", data);
-  }
-  }
-  
-const deleteNote = (id) => {
-  const data = fetch(API_BASE + "/note/delete/" + id, {
-      method: "DELETE"
-  }).then(res => res.json());
-    console.log(data);
-
-const newNotes = notesArray.filter((note) => note._id !== data._id);
-  console.log(data._id);
-  setNotesArray(newNotes);
-  // getNotes();
-  console.log("NOTE HAS BEEN DELETED!!!!!!!!")
-}
 
 const completeNote = async (id) => {
   const data = await fetch(API_BASE + "/note/complete/" + id)

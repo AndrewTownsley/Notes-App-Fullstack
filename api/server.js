@@ -33,7 +33,7 @@ app.post('/note/new', (req, res) => {
     res.json(note);
 })
 
-app.delete('/note/delete/:id', async (req, res) => {
+app.delete('/note/delete/:_id', async (req, res) => {
     const result = await Note.findByIdAndDelete(req.params.id);
 
     res.json({result});
